@@ -19,7 +19,8 @@ import orderRouter from "./routes/orderRoute.js";
 
 // app config
 const app = express();
-const port = 4000 || process.env.PORT;
+const PORT = process.env.PORT || 4000;
+
 
 // middlewares
 app.use(express.json());
@@ -39,8 +40,15 @@ app.get("/", (req, res) => {
   res.send("Api is working well!");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+app.use((err, req, res, next) => {
+  console.error("Error occurred:", err);
+  res.status(500).json({ error: "Internal Server Error" });
+});
+
 
 // mongodb+srv://mahmoudhossam219200:Khodary12345@cluster0.a0qzr.mongodb.net/?
